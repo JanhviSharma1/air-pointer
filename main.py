@@ -25,11 +25,25 @@ while True:
             mp_drawing.draw_landmarks(img, hand, mp_hands.HAND_CONNECTIONS)
 
             index_finger_tip = hand.landmark[8]
+            middle_finger_tip = hand.landmark[12]
+            thumb_tip = hand.landmark[4]
 
             x = int(index_finger_tip.x * screen_width)
             y = int(index_finger_tip.y * screen_height)
 
             pyautogui.moveTo(x, y, duration=0.1)
+
+            index_x, index_y = int(index_finger_tip.x * img_width), int(index_finger_tip.y * img_height)
+            middle_x, middle_y = int(middle_finger_tip.x * img_width), int(middle_finger_tip.y * img_height)
+            thumb_x, thumb_y = int(thumb_tip.x * img_width), int(thumb_tip.y * img_height)
+
+            # Left Click: If index & middle fingers are close together
+            if abs(index_x - middle_x) < 40 and abs(index_y - middle_y) < 40:
+                pyautogui.click()
+
+            # Right Click: If index & thumb are close together
+            if abs(index_x - thumb_x) < 40 and abs(index_y - thumb_y) < 40:
+                pyautogui.rightClick()
 
     cv2.imshow("Hand Mouse Control", img)
 
