@@ -3,7 +3,6 @@ import pyautogui
 import mediapipe as mp
 import numpy as np
 
-# Initialize Video Capture
 capture = cv2.VideoCapture(0)
 screen_width, screen_height = pyautogui.size()
 
